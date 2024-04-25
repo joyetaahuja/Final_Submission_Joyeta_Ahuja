@@ -31,6 +31,33 @@ The impact of the project extends to multiple levels. Firstly,it helps rescue te
 Feasibility
 The feasibility of the project appears promising. I have access to the necessary resources, including a meaningful dataset of pre- and post-disaster satellite images, as well as technical expertise in AI and machine learning. Additionally, in future identified partnerships with domain experts in disaster relief and satellite imaging will  enhance the project's implementation and feasibility.
 
+INSTALLATION
+
+Clone this repository `git clone https://github.com/joyetaahuja/Final_Submission_Joyeta_Ahuja.git`
+
+To train the building localization task launch:
+   `python main.py --type pre --encoder resnest200 --loss_str ce+dice --deep_supervision --attention --tta --gpus 1 --batch_size 16 --val_batch_size 8 --gpus 1`
+
+To train the building damage assessment task launch:
+
+`python main.py --type post --dmg_model siamese --encoder resnest200 --loss_str focal+dice --attention --deep_supervision --tta --gpus 8 --batch_size 16 --val_batch_size 8 `
+
+To run inference launch:
+   
+   `python main.py --exec_mode eval --type {pre,post} --ckpt <path/to/checkpoint> --gpus 1 --val_batch_size 8`
+   
+To post process the saved predictions during inference, launch:
+
+`python utils/post_process.py`
+
+To get the final score, launch:
+
+`python utils/xview2_metrics.py /results/predictions /results/targets /results/score.json && cat /results/score.json`
+
+Reference data: https://drive.google.com/drive/folders/1nKwhOD_xJGFIVepeMwHlHva5vom_NUXJ?usp=sharing
+
+   
+
 
 
 
